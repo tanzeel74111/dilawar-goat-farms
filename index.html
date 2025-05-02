@@ -6,9 +6,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DILAWAR GOAT FARMS</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* Image zoom modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+      overflow: auto;
+    }
+    
+    .modal-content {
+      margin: auto;
+      display: block;
+      width: 80%;
+      max-width: 800px;
+      max-height: 80vh;
+      object-fit: contain;
+      animation: zoom 0.3s;
+    }
+    
+    @keyframes zoom {
+      from {transform: scale(0.1)}
+      to {transform: scale(1)}
+    }
+    
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    
+    .close:hover {
+      color: #bbb;
+    }
+    
+    /* Caption text */
+    .caption {
+      margin: auto;
+      display: block;
+      width: 80%;
+      max-width: 700px;
+      text-align: center;
+      color: #ccc;
+      padding: 10px 0;
+      height: 150px;
+    }
+  </style>
 </head>
 
 <body class="bg-gray-100 text-gray-800">
+  <!-- Image Zoom Modal -->
+  <div id="imageModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="zoomedImage">
+    <div id="caption" class="caption"></div>
+  </div>
+
   <!-- Header -->
   <header class="bg-green-900 text-white p-4 shadow">
     <div class="container mx-auto flex justify-between items-center">
@@ -53,28 +116,34 @@
         <!-- Makhichini Goats Subsection -->
         <div class="bg-gray-100 p-4 rounded shadow">
           <!-- Main Image (Always Visible) -->
-          <img src="images/makhichini1.jpg" class="w-full h-48 object-cover rounded mb-2" alt="Makhichini Goat" />
+          <img src="images/makhichini1.jpg" class="w-full h-48 object-cover rounded mb-2 cursor-pointer hover:opacity-90" 
+               alt="Makhichini Goat" onclick="zoomImage(this)" />
           <h3 class="font-bold text-xl">Makhichini Goats</h3>
           <p>Strong, healthy Makhichini goats known for meat quality and excellent adaptability. These goats are raised in a clean, healthy environment with proper veterinary care and feeding routines.</p>
           
           <!-- Toggle Button -->
-          <button 
-            onclick="toggleGallery()" 
-            class="mt-2 text-green-700 hover:underline focus:outline-none"
-          >
+          <button onclick="toggleGallery()" class="mt-2 text-green-700 hover:underline focus:outline-none">
             View More Images ↓
           </button>
 
           <!-- Hidden Gallery (Initially Collapsed) -->
           <div id="makhichiniGallery" class="hidden mt-4 grid grid-cols-2 gap-2">
-            <img src="images/makhichini2.jpg" class="w-full h-32 object-cover rounded" alt="Makhichini Goat" />
-            <img src="images/makhichini3.jpg" class="w-full h-32 object-cover rounded" alt="Makhichini Goat" />
-            <img src="images/makhichini4.jpg" class="w-full h-32 object-cover rounded" alt="Makhichini Goat" />
-            <img src="images/makhichini5.jpg" class="w-full h-32 object-cover rounded" alt="Makhichini Goat" />
-            <img src="images/makhichini6.jpg" class="w-full h-32 object-cover rounded" alt="Makhichini Goat" />
-            <img src="images/makhichini7.jpg" class="w-full h-32 object-cover rounded" alt="Makhichini Goat" />
-            <img src="images/makhichini8.jpg" class="w-full h-32 object-cover rounded" alt="Makhichini Goat" />
-            <img src="images/makhichini9.jpg" class="w-full h-32 object-cover rounded" alt="Makhichini Goat" />
+            <img src="images/makhichini2.jpg" class="w-full h-32 object-cover rounded cursor-pointer hover:opacity-90" 
+                 alt="Makhichini Goat" onclick="zoomImage(this)" />
+            <img src="images/makhichini3.jpg" class="w-full h-32 object-cover rounded cursor-pointer hover:opacity-90" 
+                 alt="Makhichini Goat" onclick="zoomImage(this)" />
+            <img src="images/makhichini4.jpg" class="w-full h-32 object-cover rounded cursor-pointer hover:opacity-90" 
+                 alt="Makhichini Goat" onclick="zoomImage(this)" />
+            <img src="images/makhichini5.jpg" class="w-full h-32 object-cover rounded cursor-pointer hover:opacity-90" 
+                 alt="Makhichini Goat" onclick="zoomImage(this)" />
+            <img src="images/makhichini6.jpg" class="w-full h-32 object-cover rounded cursor-pointer hover:opacity-90" 
+                 alt="Makhichini Goat" onclick="zoomImage(this)" />
+            <img src="images/makhichini7.jpg" class="w-full h-32 object-cover rounded cursor-pointer hover:opacity-90" 
+                 alt="Makhichini Goat" onclick="zoomImage(this)" />
+            <img src="images/makhichini8.jpg" class="w-full h-32 object-cover rounded cursor-pointer hover:opacity-90" 
+                 alt="Makhichini Goat" onclick="zoomImage(this)" />
+            <img src="images/makhichini9.jpg" class="w-full h-32 object-cover rounded cursor-pointer hover:opacity-90" 
+                 alt="Makhichini Goat" onclick="zoomImage(this)" />
           </div>
         </div>
         
@@ -93,9 +162,12 @@
     <div class="max-w-6xl mx-auto">
       <h2 class="text-2xl font-bold mb-6">Gallery</h2>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-        <img src="https://images.unsplash.com/photo-1607372051620-2973c92d3024" class="rounded shadow" alt="Farm Image 1">
-        <img src="https://images.unsplash.com/photo-1608454837080-f6a361fe7e19" class="rounded shadow" alt="Farm Image 2">
-        <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b" class="rounded shadow" alt="Farm Image 3">
+        <img src="https://images.unsplash.com/photo-1607372051620-2973c92d3024" class="rounded shadow cursor-pointer hover:opacity-90" 
+             alt="Farm Image 1" onclick="zoomImage(this)">
+        <img src="https://images.unsplash.com/photo-1608454837080-f6a361fe7e19" class="rounded shadow cursor-pointer hover:opacity-90" 
+             alt="Farm Image 2" onclick="zoomImage(this)">
+        <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b" class="rounded shadow cursor-pointer hover:opacity-90" 
+             alt="Farm Image 3" onclick="zoomImage(this)">
       </div>
     </div>
   </section>
@@ -167,22 +239,54 @@
     &copy; 2025 Dilawar Goat Farms. All rights reserved.
   </footer>
 
-  <!-- JavaScript for Toggle Functionality -->
+  <!-- JavaScript -->
   <script>
+    // Toggle gallery function
     function toggleGallery() {
       const gallery = document.getElementById("makhichiniGallery");
       const button = document.querySelector("button[onclick='toggleGallery()']");
       
-      // Toggle gallery visibility
       gallery.classList.toggle("hidden");
       
-      // Update button text
       if (gallery.classList.contains("hidden")) {
         button.textContent = "View More Images ↓";
       } else {
         button.textContent = "Hide Images ↑";
       }
     }
+
+    // Image zoom functionality
+    function zoomImage(img) {
+      const modal = document.getElementById("imageModal");
+      const modalImg = document.getElementById("zoomedImage");
+      const captionText = document.getElementById("caption");
+      
+      modal.style.display = "block";
+      modalImg.src = img.src;
+      captionText.innerHTML = img.alt;
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      document.getElementById("imageModal").style.display = "none";
+      document.body.style.overflow = "auto";
+    }
+
+    // Close modal when clicking outside the image
+    window.onclick = function(event) {
+      const modal = document.getElementById("imageModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+
+    // Close modal with Escape key
+    document.onkeydown = function(evt) {
+      evt = evt || window.event;
+      if (evt.key === "Escape") {
+        closeModal();
+      }
+    };
   </script>
 </body>
 
